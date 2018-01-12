@@ -1,13 +1,13 @@
 var weerTypes = [
-    'clear sky',
-    'few clouds',
-    'scattered clouds',
-    'broken clouds',
-    'shower rain',
-    'rain',
-    'thunderstorm',
-    'snow',
-    'mist'
+    'Clear Sky',
+    'Few Clouds',
+    'Scattered Clouds',
+    'Broken Clouds',
+    'Shower Rain',
+    'Rain',
+    'Thunderstorm',
+    'Snow',
+    'Mist'
 ];
 
 var weerSymbolen = ['https://image.flaticon.com/icons/svg/136/136832.svg', 'https://image.flaticon.com/icons/svg/131/131043.svg', 'https://image.flaticon.com/icons/svg/131/131077.svg', 'https://image.flaticon.com/icons/svg/131/131043.svg', 'https://image.flaticon.com/icons/svg/414/414923.svg', 'https://image.flaticon.com/icons/svg/69/69404.svg', 'https://image.flaticon.com/icons/svg/178/178374.svg', 'https://image.flaticon.com/icons/svg/653/653600.svg', 'https://image.flaticon.com/icons/svg/134/134120.svg'];
@@ -21,6 +21,8 @@ var y = document.getElementById("temperatuur");
 var z = document.getElementById("weer");
 var a = document.getElementById("toestemming-tekst");
 var b = document.getElementById("weerSymbool");
+
+var celcius;
 
 
 
@@ -53,17 +55,18 @@ var currentPosition = (function() {
                 console.log(json);
                 console.log(json.name);
 
-
+//switch(json.weather[0].main)
+//    case 'Mist':
+// b.src ='https://image.flaticon.com/icons/svg/414/414923.svg', 'https://image.flaticon.com/icons/svg/69/69404.svg', 
+//         
+    
                 for (var i = 0; i < weerTypes.length; i++) {
-
-                    if (weerTypes[i] === json.weather[0].main) {
-                        
-                        console.log();
-                        
-                    }
-                }
+                    
+                    weerTypes[i] === json.weather[0].main ? b.src = weerSymbolen[i] : b.innerHTML="fout";
+                    
+             }
             });
-
+            
 
         })
 
