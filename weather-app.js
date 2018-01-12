@@ -1,9 +1,26 @@
-//Vraag toestemming om locatie en print uit 
+var weerTypes = [
+    'clear sky',
+    'few clouds',
+    'scattered clouds',
+    'broken clouds',
+    'shower rain',
+    'rain',
+    'thunderstorm',
+    'snow',
+    'mist'
+];
+
+var weerSymbolen = ['https://image.flaticon.com/icons/svg/136/136832.svg', 'https://image.flaticon.com/icons/svg/131/131043.svg', 'https://image.flaticon.com/icons/svg/131/131077.svg', 'https://image.flaticon.com/icons/svg/131/131043.svg', 'https://image.flaticon.com/icons/svg/414/414923.svg', 'https://image.flaticon.com/icons/svg/69/69404.svg', 'https://image.flaticon.com/icons/svg/178/178374.svg', 'https://image.flaticon.com/icons/svg/653/653600.svg', 'https://image.flaticon.com/icons/svg/134/134120.svg'];
+
 
 
 //API KEY: 8d8ae780c690c3afc002ee7aef0ffece
 
 var x = document.getElementById("naamStad");
+var y = document.getElementById("temperatuur");
+var z = document.getElementById("weer");
+var a = document.getElementById("toestemming-tekst");
+var b = document.getElementById("weerSymbool");
 
 
 
@@ -13,39 +30,45 @@ var currentPosition = (function() {
     if (document.readyState === "interactive" || "complete") {
 
         navigator.geolocation.getCurrentPosition(function(position) {
-            x.innerHTML= "Latitude: " +position.coords.latitude + "<br> Longtitude:  " + position.coords.longitude;
+
+            var lon = position.coords.longitude;
+            var lat = position.coords.latitude;
+
+
+
+            var apiRequest = 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=8d8ae780c690c3afc002ee7aef0ffece';
+
+
+
+
+            //// haal info binnen van API
+            fetch(apiRequest).then(function(res) {
+                return res.json();
+            }).then(function(json) {
+                x.innerHTML = json.name;
+                y.innerHTML = Math.floor(json.main.temp) + '°';
+                z.innerHTML = json.weather[0].main;
+                a.style.display = "none";
+
+                console.log(json);
+                console.log(json.name);
+
+
+                for (var i = 0; i < weerTypes.length; i++) {
+
+                    if (weerTypes[i] === json.weather[0].main) {
+                        
+                        console.log();
+                        
+                    }
+                }
+            });
+
+
         })
 
     } else {
         console.log("hij doet het niet");
     }
+
 })();
-
-
-
-//var lon = Math.floor(position.coords.longitude);
-//var lat = Math.floor(position.coords.latitude);
-
-
-
-//// haal info binnen van API
-
-
-
-fetch('http://api.openweathermap.org/data/2.5/weather?lat=51.2172221&lon=4.430070199999999&appid=8d8ae780c690c3afc002ee7aef0ffece').then(function(res){
-    return res.json();
-}).then(function(json){
-    
-    var tempFahr= json.main.temp;
-    console.log(json);
-    console.log(json.name);
-    
-});
-
-
-
-
-
-
-
-
